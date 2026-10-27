@@ -3,6 +3,10 @@
   --fundo: #fbfaf7;
   --marinho: #1b2a4a;
   --dourado: #9a7b2f;
+  /* Um valor só para o respiro entre blocos de texto. Parágrafo, lista e item de
+     lista usam este mesmo valor, então "espaçamento igual ao dos parágrafos" é
+     estrutural, não coincidência que a próxima edição desfaz. */
+  --respiro: 1.25rem;
 }
 
 *,
@@ -38,8 +42,39 @@ h1 {
   line-height: 1.25;
 }
 
+/* Era `margin: 0`, que bastava quando cada página tinha UM parágrafo. As páginas
+   legais têm 14 e 19, e sem respiro o texto vira um paredão ilegível. */
 p {
-  margin: 0;
+  margin: 0 0 var(--respiro);
+}
+
+/* Respiro acima maior que abaixo: o h2 pertence ao que vem depois dele, e é essa
+   assimetria que faz a seção parecer um bloco em vez de uma linha solta. */
+h2 {
+  margin: 2.5rem 0 0.75rem;
+  color: var(--marinho);
+  font-size: 1.25rem;
+  line-height: 1.3;
+}
+
+ul {
+  margin: 0 0 var(--respiro);
+  padding-left: 1.5rem;
+}
+
+li {
+  margin: 0 0 var(--respiro);
+}
+
+/* Sem isto o último item soma a margem dele com a da lista e abre um buraco. */
+li:last-child {
+  margin-bottom: 0;
+}
+
+/* Só negrito, sem cor própria: o dourado é do link, e dar cor ao strong faria o
+   texto legal parecer cheio de links que não existem. */
+strong {
+  font-weight: 600;
 }
 
 a {
@@ -54,5 +89,9 @@ a {
 
   h1 {
     font-size: 2.125rem;
+  }
+
+  h2 {
+    font-size: 1.375rem;
   }
 }
